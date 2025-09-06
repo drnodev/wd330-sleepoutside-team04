@@ -21,3 +21,7 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+
+
+export const CARTKEY = 'so-cart'
