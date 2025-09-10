@@ -23,5 +23,13 @@ export function setClick(selector, callback) {
 }
 
 
+export function getParam(parameter) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get(parameter)
+
+  return product
+}
+
 
 export const CARTKEY = 'so-cart'
