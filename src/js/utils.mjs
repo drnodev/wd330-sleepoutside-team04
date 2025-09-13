@@ -32,4 +32,11 @@ export function getParam(parameter) {
 }
 
 
+
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+  if (clear) parentElement.innerHTML = "";
+  const htmlItems = list.map((item) => templateFn(item));
+  parentElement.insertAdjacentHTML(position, htmlItems.join(""));
+}
+
 export const CARTKEY = 'so-cart'
