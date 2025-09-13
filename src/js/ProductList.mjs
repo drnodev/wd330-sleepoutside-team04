@@ -1,4 +1,4 @@
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderListWithTemplate, updateCartBadge } from "./utils.mjs";
 
 class ProductList {
     constructor(category, dataSource, listElement) {
@@ -10,6 +10,7 @@ class ProductList {
     async init() {
         const list          = await this.dataSource.getData();
         this.renderList(list);
+        updateCartBadge();
     }
 
 
