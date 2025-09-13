@@ -1,3 +1,6 @@
+
+export const CARTKEY = 'so-cart'
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -39,4 +42,26 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML(position, htmlItems.join(""));
 }
 
-export const CARTKEY = 'so-cart'
+
+export function updateCartBadge() {
+
+  const cartItems = JSON.parse(localStorage.getItem(CARTKEY)) || [];
+  const count = cartItems.length;
+
+  const cart = document.querySelector(".cart");
+  let badge = cart.querySelector(".cart-badge");
+  if (count > 0) {
+    if (!badge) {
+      badge = document.createElement("span");
+      badge.classList.add("cart-badge");
+      cart.appendChild(badge);
+    }
+    badge.textContent = count;
+  } else {
+    if (badge) {
+      badge.remove();
+    }
+  }
+}
+
+

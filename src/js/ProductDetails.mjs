@@ -1,4 +1,4 @@
-import { CARTKEY, getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { CARTKEY, getLocalStorage, setLocalStorage, updateCartBadge } from "./utils.mjs";
 
 
 export default class ProductDetails {
@@ -23,7 +23,7 @@ export default class ProductDetails {
         document.getElementById('addToCart')
             .addEventListener('click', this.addProductToCart.bind(this));
 
-
+        updateCartBadge();
     }
 
 
@@ -31,6 +31,7 @@ export default class ProductDetails {
         const cart = getLocalStorage(CARTKEY) || []
         cart.push(this.product)
         setLocalStorage(CARTKEY, cart);
+        updateCartBadge();
     }
 
 

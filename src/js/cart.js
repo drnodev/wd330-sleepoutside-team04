@@ -1,9 +1,10 @@
-import { CARTKEY, getLocalStorage } from "./utils.mjs";
+import { CARTKEY, getLocalStorage, updateCartBadge } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage(CARTKEY);
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  updateCartBadge();
 }
 
 function cartItemTemplate(item) {
