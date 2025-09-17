@@ -1,3 +1,6 @@
+
+export const CARTKEY = 'so-cart'
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -31,14 +34,55 @@ export function getParam(parameter) {
   return product
 }
 
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+  if (clear) parentElement.innerHTML = "";
+  const htmlItems = list.map((item) => templateFn(item));
+  parentElement.insertAdjacentHTML(position, htmlItems.join(""));
+}
 
-export const CARTKEY = 'so-cart'
 
-export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
-  const htmlStrings = list.map(template);
-  // if clear is true we need to clear out the contents of the parent.
-  if (clear) {
-    parentElement.innerHTML = "";
+export function updateCartBadge() {
+
+  const cartItems = JSON.parse(localStorage.getItem(CARTKEY)) || [];
+  const count = cartItems.length;
+
+  const cart = document.querySelector(".cart");
+  console.log(cart);
+  let badge = cart.querySelector(".cart-badge");
+  if (count > 0) {
+    if (!badge) {
+      badge = document.createElement("span");
+      badge.classList.add("cart-badge");
+      cart.appendChild(badge);
+    }
+    badge.textContent = count;
+  } else {
+    if (badge) {
+      badge.remove();
+    }
   }
-  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+//W03 Team Activity
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data);
+  }
+}
+
+export async function loadTemplate(path) {
+  const res = await fetch(path);
+  const template = await res.text();
+  return template;
+}
+
+export async function loadHeaderFooter(){
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const headerElement = document.querySelector("#main-header");
+  const footerElement = document.querySelector("#main-footer");
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+  updateCartBadge();
 }

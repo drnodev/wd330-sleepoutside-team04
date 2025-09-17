@@ -1,4 +1,4 @@
-import { CARTKEY, getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { CARTKEY, getLocalStorage, setLocalStorage, updateCartBadge } from "./utils.mjs";
 
 
 export default class ProductDetails {
@@ -11,9 +11,7 @@ export default class ProductDetails {
 
     async init() {
         this.product = await this.dataSource.findProductById(this.productId)
-        console.log(this.product)
-
-        this.renderProductDetails()
+        document.querySelector('.product-detail').innerHTML = this.renderProductDetails()
 
 
 
@@ -25,7 +23,7 @@ export default class ProductDetails {
         document.getElementById('addToCart')
             .addEventListener('click', this.addProductToCart.bind(this));
 
-
+        //updateCartBadge();
     }
 
 
@@ -33,6 +31,7 @@ export default class ProductDetails {
         const cart = getLocalStorage(CARTKEY) || []
         cart.push(this.product)
         setLocalStorage(CARTKEY, cart);
+        updateCartBadge();
     }
 
     /*renderProductDetails() {
@@ -41,40 +40,24 @@ export default class ProductDetails {
 
 
     renderProductDetails() {
-        const title = document.querySelector(".product-detail h2")
-        title.innerHTML = this.product.NameWithoutBrand
+        const colorshtml = this.product.Colors.map(c => c.ColorName).join(', ');
 
-        const brand = document.querySelector(".product-detail h3")
-        brand.innerHTML = this.product.Brand.Name
+        return `
+            <h3>${this.product.Brand?.Name || ""}</h3>
+            <h2 class="divider">${this.product.NameWithoutBrand}</h2>
+            <img
+                class="divider"
+                src="${this.product.Image}"
+                alt="${this.product.NameWithoutBrand}"
+            />
 
-        const image = document.querySelector(".product-detail img")
-        image.src = this.product.Image
+            <p class="product-card__price">$${this.product.ListPrice.toFixed(2)}</p>
+            <p class="product__color">${colorshtml}</p>
+            <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
 
-        const price = document.querySelector('.product-card__price')
-        price.innerHTML = this.product.ListPrice
-
-        const color = document.querySelector('.product__color')
-
-        const colorshtml = this.product.Colors.map(color => color.ColorName).join(',')
-        color.innerHTML = colorshtml
-
-        const description = document.querySelector('.product__description')
-        description.innerHTML = this.product.DescriptionHtmlSimple
-
+            <div class="product-detail__add">
+                <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
+            </div>
+        `;
     }
 }
-
-/*function productDetailsTemplate(product) {
-  document.querySelector("h2").textContent = product.Brand.Name;
-  document.querySelector("h3").textContent = product.NameWithoutBrand;
-
-  const productImage = document.getElementById("productImage");
-  productImage.src = product.Image;
-  productImage.alt = product.NameWithoutBrand;
-
-  document.getElementById("productPrice").textContent = product.FinalPrice;
-  document.getElementById("productColor").textContent = product.Colors[0].ColorName;
-  document.getElementById("productDesc").innerHTML = product.DescriptionHtmlSimple;
-
-  document.getElementById("addToCart").dataset.id = product.Id;
-}*/

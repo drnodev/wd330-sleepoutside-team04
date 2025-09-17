@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   root: "src/",
-
+base: "/",
   build: {
     outDir: "../dist",
     rollupOptions: {
@@ -15,5 +15,20 @@ export default defineConfig({
       },
     },
   },
+  
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: resolve(__dirname, "src/json/*.json"),
+          dest: "json",
+        },
+        {
+          src: resolve(__dirname, "src/images/tents/*.jpg"),
+          dest: "images/tents",
+        },
+      ],
+    }),
+  ],
 });
  
