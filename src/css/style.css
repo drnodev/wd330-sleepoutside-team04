@@ -131,6 +131,11 @@ button {
   fill: gray;
 }
 
+
+.hide{
+  display: none;
+}
+
 /* End cart icon styles */
 
 .mission {

@@ -34,8 +34,6 @@ export function getParam(parameter) {
   return product
 }
 
-
-
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
   if (clear) parentElement.innerHTML = "";
   const htmlItems = list.map((item) => templateFn(item));

@@ -34,6 +34,10 @@ export default class ProductDetails {
         updateCartBadge();
     }
 
+    /*renderProductDetails() {
+        productDetailsTemplate(this.product);
+    }*/
+
 
     renderProductDetails() {
         const colorshtml = this.product.Colors.map(c => c.ColorName).join(', ');
@@ -56,5 +60,4 @@ export default class ProductDetails {
             </div>
         `;
     }
-
 }
