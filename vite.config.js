@@ -4,7 +4,6 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
   root: "src/",
-
   build: {
     outDir: "../dist",
     rollupOptions: {
@@ -33,9 +32,10 @@ export default defineConfig({
       targets: [
         {
           src: resolve(__dirname, "src/json/*.json"),
-          dest: "json",
-        },
-      ],
-    }),
-  ],
+          dest: "json"  
+        }
+      ]
+    })
+  ]
 });
+ 
