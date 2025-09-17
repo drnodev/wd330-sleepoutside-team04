@@ -42,7 +42,7 @@ renderCartContents();
 function renderCartItems(){
   const cartItems = getLocalStorage('so-cart') || [];
   if (cartItems.length === 0) {
-    console.log("Cart is empty. Hiding total.");
+    console.log("Cart is empty");
     return; 
   }
 
@@ -56,5 +56,4 @@ function renderCartItems(){
     document.querySelector('.cart-total').innerHTML = `Total: $${totalAmount}`;
   }
 }
-
 renderCartItems();
