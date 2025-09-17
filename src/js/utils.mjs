@@ -49,6 +49,7 @@ export function updateCartBadge() {
   const count = cartItems.length;
 
   const cart = document.querySelector(".cart");
+  console.log(cart);
   let badge = cart.querySelector(".cart-badge");
   if (count > 0) {
     if (!badge) {
@@ -64,4 +65,26 @@ export function updateCartBadge() {
   }
 }
 
+//W03 Team Activity
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if(callback) {
+    callback(data);
+  }
+}
 
+export async function loadTemplate(path) {
+  const res = await fetch(path);
+  const template = await res.text();
+  return template;
+}
+
+export async function loadHeaderFooter(){
+  const headerTemplate = await loadTemplate("../partials/header.html");
+  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const headerElement = document.querySelector("#main-header");
+  const footerElement = document.querySelector("#main-footer");
+  renderWithTemplate(headerTemplate, headerElement);
+  renderWithTemplate(footerTemplate, footerElement);
+  updateCartBadge();
+}
