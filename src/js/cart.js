@@ -1,4 +1,6 @@
-import { CARTKEY, getLocalStorage, updateCartBadge } from "./utils.mjs";
+import { CARTKEY, getLocalStorage, updateCartBadge, loadHeaderFooter } from "./utils.mjs";
+
+loadHeaderFooter();
 
 function renderCartContents() {
   const cartItems = getLocalStorage(CARTKEY) || [];//Starting an empty array in case the local storage key is null to avoid the error: cart.js:5 Uncaught TypeError: Cannot read properties of null (reading 'map').
@@ -12,7 +14,7 @@ function renderCartContents() {
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
   
-  updateCartBadge();
+  //updateCartBadge();
 }
 
 function cartItemTemplate(item) {
