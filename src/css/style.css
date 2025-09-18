@@ -210,11 +210,15 @@ button {
 
 /* Start cart list card styles */
 .cart-card {
+  width: 100%;
   display: grid;
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  box-shadow: 2px 2px 2px #ccc ;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .cart-card__image {
@@ -315,4 +319,25 @@ footer {
 
 span.highlight{
   text-transform: capitalize;
+}
+
+.cart-card__remove a{
+  background-color: var(--tertiary-color);
+  color: white;
+  width: 32px;
+  height: 32px;
+  display: block;
+  border-radius: 5px;
+  align-content: center;
+  text-align: center;
+}
+
+.cart-card__remove a:hover{
+  opacity: 0.8;
+}
+
+.cart-total{
+  font-size: 2.0rem;
+  text-align: right;
+  font-weight: bold;
 }

@@ -42,12 +42,12 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
 
 
 export function updateCartBadge() {
-
   const cartItems = JSON.parse(localStorage.getItem(CARTKEY)) || [];
-  const count = cartItems.length;
+  const count = cartItems.reduce((total, item) => total + (item.qty || 1), 0);
 
   const cart = document.querySelector(".cart");
   let badge = cart.querySelector(".cart-badge");
+
   if (count > 0) {
     if (!badge) {
       badge = document.createElement("span");
@@ -61,6 +61,7 @@ export function updateCartBadge() {
     }
   }
 }
+
 
 //W03 Team Activity
 export function renderWithTemplate(template, parentElement, data, callback) {
