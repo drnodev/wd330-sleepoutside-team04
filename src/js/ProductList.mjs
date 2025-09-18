@@ -9,6 +9,7 @@ class ProductList {
 
     async init() {
         const list          = await this.dataSource.getData(this.category);
+        document.querySelector(".title").textContent = this.category;
         this.renderList(list);
     }
 
