@@ -47,7 +47,6 @@ export function updateCartBadge() {
   const count = cartItems.length;
 
   const cart = document.querySelector(".cart");
-  console.log(cart);
   let badge = cart.querySelector(".cart-badge");
   if (count > 0) {
     if (!badge) {
