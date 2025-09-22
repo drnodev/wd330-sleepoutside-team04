@@ -341,3 +341,15 @@ span.highlight{
   text-align: right;
   font-weight: bold;
 }
+
+/*Styling sort buttons*/
+#sort-container{
+  display: grid;
+  justify-content: start;
+  gap: 5px;
+  padding: 15px;
+}
+
+#sort-container button:hover{
+  background-color: var(--dark-grey);
+}
