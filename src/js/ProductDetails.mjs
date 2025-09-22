@@ -10,6 +10,7 @@ export default class ProductDetails {
     }
 
     async init() {
+        
         this.product = await this.dataSource.findProductById(this.productId)
         document.querySelector('.product-detail').innerHTML = this.renderProductDetails()
 
@@ -28,15 +29,23 @@ export default class ProductDetails {
 
 
     addProductToCart() {
-        const cart = getLocalStorage(CARTKEY) || []
-        cart.push(this.product)
+        const cart = getLocalStorage(CARTKEY) || [];
+        const existingProduct = cart.find(item => item.Id === this.product.Id);
+
+        if (existingProduct) {
+            existingProduct.qty += 1;
+        } else {
+            const productWithId = {
+                ...this.product,
+                qty: 1,
+            };
+            cart.push(productWithId);
+        }
+
         setLocalStorage(CARTKEY, cart);
         updateCartBadge();
     }
 
-    /*renderProductDetails() {
-        productDetailsTemplate(this.product);
-    }*/
 
 
     renderProductDetails() {
