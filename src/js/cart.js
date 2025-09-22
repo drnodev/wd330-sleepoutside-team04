@@ -20,7 +20,7 @@ function cartItemActions() {
     updateCartBadge();
   });
 
-    cartList.addEventListener("input", (e) => {
+  cartList.addEventListener("input", (e) => {
     if (!e.target.classList.contains("cart-card__quantity")) return;
 
     const input = e.target;
@@ -42,12 +42,12 @@ function renderCartContents() {
   const cartItems = getLocalStorage(CARTKEY) || [];//Starting an empty array in case the local storage key is null to avoid the error: cart.js:5 Uncaught TypeError: Cannot read properties of null (reading 'map').
 
   const cartMessage = document.getElementById("cart-message");
-  if(cartItems.length === 0){ 
-      cartMessage.textContent = "Your cart is empty."; //If the cart is empty, Show a message.
-      document.querySelector(".product-list").innerHTML = ""; // clear list
-      return; // stop further processing
-    } 
-  cartMessage.textContent = "";  
+  if (cartItems.length === 0) {
+    cartMessage.textContent = "Your cart is empty."; //If the cart is empty, Show a message.
+    document.querySelector(".product-list").innerHTML = ""; // clear list
+    return; // stop further processing
+  }
+  cartMessage.textContent = "";
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
   cartItemActions()
@@ -55,7 +55,7 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
-const newItem = `<li class="cart-card divider">
+  const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img src="${item.Images?.PrimaryMedium || item.Image}" alt="${item.Name}" />
     </a>
@@ -92,6 +92,7 @@ const newItem = `<li class="cart-card divider">
 
   return newItem;
 }
+
 
 renderCartContents();
 

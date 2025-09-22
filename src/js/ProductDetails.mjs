@@ -10,7 +10,7 @@ export default class ProductDetails {
     }
 
     async init() {
-        
+
         this.product = await this.dataSource.findProductById(this.productId)
         document.querySelector('.product-detail').innerHTML = this.renderProductDetails()
 
@@ -47,16 +47,16 @@ export default class ProductDetails {
     }
 
 
-
     renderProductDetails() {
         const colorshtml = this.product.Colors.map(c => c.ColorName).join(', ');
+
 
         return `
             <h3>${this.product.Brand?.Name || ""}</h3>
             <h2 class="divider">${this.product.NameWithoutBrand}</h2>
             <img
                 class="divider"
-                src="${this.product.Image}"
+                src="${this.product.Images.PrimaryLarge}"
                 alt="${this.product.NameWithoutBrand}"
             />
 

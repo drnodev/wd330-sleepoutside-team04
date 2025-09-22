@@ -1,9 +1,10 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
+//import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
   root: "src/",
-base: "/",
+  base: "/",
   build: {
     outDir: "../dist",
     rollupOptions: {
@@ -18,18 +19,18 @@ base: "/",
   },
   
   plugins: [
-    //viteStaticCopy({
-    //  targets: [
-    //   {
-    //      src: resolve(__dirname, "src/json/*.json"),
-    //      dest: "json",
-    //    },
-    //    {
-    //      src: resolve(__dirname, "src/images/tents/*.jpg"),
-    //      dest: "images/tents",
-    //    },
-    //  ],
-    //}),
+    // viteStaticCopy({
+    //   targets: [
+    //     {
+    //       src: resolve(__dirname, "src/json/*.json"),
+    //       dest: "json",
+    //     },
+    //     {
+    //       src: resolve(__dirname, "src/images/tents/*.jpg"),
+    //       dest: "images/tents",
+    //     }
+    //   ],
+    // }),
   ],
 });
  

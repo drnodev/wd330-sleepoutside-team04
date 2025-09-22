@@ -62,6 +62,7 @@ export function updateCartBadge() {
   }
 }
 
+
 //W03 Team Activity
 export function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template;
