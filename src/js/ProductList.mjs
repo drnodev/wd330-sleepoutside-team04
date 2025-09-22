@@ -5,16 +5,19 @@ class ProductList {
         this.category = category;
         this.dataSource = dataSource;
         this.listElement = listElement;
+        this.products = []; //Keeping fetched products here -- BN
     }
 
     async init() {
-        const list          = await this.dataSource.getData(this.category);
+        this.products = await this.dataSource.getData(this.category); //storing the empty array "this.products"
         document.querySelector(".title").textContent = this.category;
-        this.renderList(list);
+        this.renderList(this.products); // Now render from this.products
+        this.addButtons();
     }
 
 
     renderList(list) {
+        this.listElement.innerHTML = ""; // clear the list before re-rendering
        renderListWithTemplate(this.productCardTemplate, this.listElement, list);
     }
 
@@ -31,6 +34,37 @@ class ProductList {
                 <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
             </a>
           </li>`
+    }
+
+    //BN--Adding the ability to sort by price:
+    addButtons() {
+        const container = document.createElement('div');
+        container.id = 'sort-container';
+
+        const unsortedBtn = document.createElement('button');
+        unsortedBtn.textContent = 'Unfiltered';
+        unsortedBtn.addEventListener('click', () =>{
+            this.renderList(this.products);
+        });
+
+        const ascendBtn = document.createElement('button');
+        ascendBtn.textContent = 'Low to High';
+        ascendBtn.addEventListener('click', () =>{
+            const sorted = [...this.products].sort((a,b) => a.FinalPrice - b.FinalPrice);
+            this.renderList(sorted);
+        });
+
+        const descendBtn = document.createElement('button');
+        descendBtn.textContent = 'High to Low';
+        descendBtn.addEventListener('click', () =>{
+            const sorted = [...this.products].sort((a,b) => b.FinalPrice - a.FinalPrice);
+            this.renderList(sorted);
+        });
+
+        container.appendChild(unsortedBtn);
+        container.appendChild(ascendBtn);
+        container.appendChild(descendBtn)
+        this.listElement.before(container);
     }
 }
 
