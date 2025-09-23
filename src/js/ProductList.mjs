@@ -6,6 +6,8 @@ class ProductList {
         this.dataSource = dataSource;
         this.listElement = listElement;
         this.products = []; //Keeping fetched products here -- BN
+        this.originalProducts = []; // full list or search results
+        this.buttonsCreated = false; // track if buttons were created
     }
 
     async init() {
@@ -17,8 +19,14 @@ class ProductList {
 
 
     renderList(list) {
-        this.listElement.innerHTML = ""; // clear the list before re-rendering
-       renderListWithTemplate(this.productCardTemplate, this.listElement, list);
+        this.products = list; // update current products
+        this.listElement.innerHTML = ""; // clear previous items
+        renderListWithTemplate(this.productCardTemplate, this.listElement, list);
+
+        if (!this.buttonsCreated) {
+            this.addButtons(); // create buttons only once
+            this.buttonsCreated = true;
+        }
     }
 
 
@@ -40,11 +48,11 @@ class ProductList {
     addButtons() {
         const container = document.createElement('div');
         container.id = 'sort-container';
-
+        
         const unsortedBtn = document.createElement('button');
         unsortedBtn.textContent = 'Unfiltered';
-        unsortedBtn.addEventListener('click', () =>{
-            this.renderList(this.products);
+        unsortedBtn.addEventListener('click', () => {
+            this.renderList(this.originalProducts);
         });
 
         const ascendBtn = document.createElement('button');
