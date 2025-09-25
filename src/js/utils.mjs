@@ -86,3 +86,15 @@ export async function loadHeaderFooter(){
   renderWithTemplate(footerTemplate, footerElement);
   updateCartBadge();
 }
+
+
+export function formDataToJSON(formElement) {
+  const formData = new FormData(formElement),
+    convertedJSON = {};
+
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
