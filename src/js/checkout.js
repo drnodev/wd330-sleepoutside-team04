@@ -5,12 +5,15 @@ const checkout = new CheckoutProcess();
 checkout.init();
 
 
-document.getElementById("checkoutForm").addEventListener("submit", function (e) {
-        console.log("submit event");
-          e.preventDefault();
-            
-            checkout.checkout(this);
-        
+document.getElementById("checkoutForm").addEventListener("submit",  (e) => {
+              e.preventDefault();
+              const form = e.target;
+              const status =  form.checkValidity();
+              form.reportValidity();
+              if (!status) return;
+              if(status) {
+                  checkout.checkout(form);
+              }
       });
 
 

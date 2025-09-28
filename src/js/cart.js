@@ -13,11 +13,25 @@ function cartItemActions() {
     const li = removeBtn.closest("li.cart-card");
     li.remove();
 
+
+
+
+
     const cartItems = getLocalStorage(CARTKEY) || [];
     const newCartItems = cartItems.filter(item => item.Id != key);
     localStorage.setItem(CARTKEY, JSON.stringify(newCartItems));
     renderCartItems()
     updateCartBadge();
+
+    const cartIcon = document.querySelector(".cart");
+        if (cartIcon) {
+            const animationClass = 'animate-pop';
+            cartIcon.classList.add(animationClass);
+            setTimeout(() => {
+                cartIcon.classList.remove(animationClass);
+            }, 500);
+        }
+
   });
 
   cartList.addEventListener("input", (e) => {
@@ -55,15 +69,18 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+
+  console.log(item.selectedColor)
+
   const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
-      <img src="${item.Images?.PrimaryMedium || item.Image}" alt="${item.Name}" />
+      <img src="${item.selectedColor.ColorPreviewImageSrc || item.Images?.PrimaryMedium || item.Image}" alt="${item.Name}" />
     </a>
     <div>
       <a href="#">
         <h2 class="card__name">${item.Name}</h2>
       </a>
-      <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+      <p class="cart-card__color">${item.selectedColor.ColorName ||item.Colors[0].ColorName}</p>
     </div>
     <div style="position: relative;">
       <input 
