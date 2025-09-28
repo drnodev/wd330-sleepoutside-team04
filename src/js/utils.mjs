@@ -98,3 +98,42 @@ export function formDataToJSON(formElement) {
 
   return convertedJSON;
 }
+
+
+export function alertMessage(message, scroll = true, kind = "error", duration = 0) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  if(kind) alert.classList.add(kind);
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+  alert.addEventListener("click", function (e) {
+    if (e.target.tagName == "SPAN") {
+      main.removeChild(this);
+    }
+  });
+  const main = document.querySelector("main");
+  main.prepend(alert);
+  if (scroll) window.scrollTo(0, 0);
+  if(duration > 0) {
+    setTimeout(() => {
+      if(main.contains(alert)) {
+        main.removeChild(alert);
+      }
+    }, duration);
+  }
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  const main = document.querySelector("main");
+  const animationDuration = 500; 
+
+  alerts.forEach((alert) => {
+    alert.classList.add("fade-out");
+    setTimeout(() => {
+      try {
+        main.removeChild(alert);
+      } catch (e) {
+      }
+    }, animationDuration);
+  });
+}
