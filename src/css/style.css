@@ -190,7 +190,8 @@ button {
 
 .product-card h2,
 .product-card h3,
-.product-card p {
+.product-card p,
+.openButton {
   margin: 0.5em 0;
 }
 
@@ -422,7 +423,7 @@ nav {
 }
 
 /* Reset button */
-#resetSearch {
+#resetSearch, .openButton {
   padding: 6px 12px;
   border: 1px solid #ccc;
   background-color: #f5f5f5;
@@ -433,7 +434,7 @@ nav {
   transition: all 0.2s ease;
 }
 
-#resetSearch:hover {
+#resetSearch, .openButton:hover {
   background-color: #e0e0e0;
   border-color: #999;
 }
