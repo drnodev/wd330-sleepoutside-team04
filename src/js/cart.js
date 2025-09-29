@@ -74,13 +74,13 @@ function cartItemTemplate(item) {
 
   const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
-      <img src="${item.selectedColor.ColorPreviewImageSrc || item.Images?.PrimaryMedium || item.Image}" alt="${item.Name}" />
+      <img src="${item.selectedColor?.ColorPreviewImageSrc || item.Images?.PrimaryMedium || item.Image}" alt="${item.Name}" />
     </a>
     <div>
       <a href="#">
         <h2 class="card__name">${item.Name}</h2>
       </a>
-      <p class="cart-card__color">${item.selectedColor.ColorName ||item.Colors[0].ColorName}</p>
+      <p class="cart-card__color">${item.selectedColor?.ColorName ||item.Colors?.[0]?.ColorName}</p>
     </div>
     <div style="position: relative;">
       <input 

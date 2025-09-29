@@ -1,4 +1,3 @@
-
 export const CARTKEY = 'so-cart'
 
 // wrapper for querySelector...returns matching element
